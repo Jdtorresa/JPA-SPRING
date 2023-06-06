@@ -1,7 +1,7 @@
 
 package com.CellphoneMarket.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,23 +10,28 @@ public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_producto")
+    @Column(name = "id_producto")
     private Integer idProducto;
+
+    @Column(nullable = false)
     private String referencia;
+
+    @Column(nullable = false)
     private Double precio;
-    @Column(name="proveedor_nit")
-    private String nitProveedor;
-
-    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="proveedor_nit", insertable = false, updatable = false)
-    private Proveedor proveedor;
-
-    public String getNitProveedor() {
-        return nitProveedor;
+    @JoinColumn(name = "proveedor_nit", referencedColumnName = "nit")
+    private Proveedor nitProveedor;
+    public Producto() {
     }
 
-    public void setNitProveedor(String nitProveedor) {
+    public Producto(Proveedor nitProveedor) {
+        this.nitProveedor = nitProveedor;
+    }
+
+    public Proveedor getNitProveedor() {
+        return nitProveedor;
+    }
+    public void setNitProveedor(Proveedor nitProveedor) {
         this.nitProveedor = nitProveedor;
     }
 
@@ -54,11 +59,4 @@ public class Producto {
         this.precio = precio;
     }
 
-    public Proveedor getProveedor() {
-        return proveedor;
-    }
-
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
-    }
 }

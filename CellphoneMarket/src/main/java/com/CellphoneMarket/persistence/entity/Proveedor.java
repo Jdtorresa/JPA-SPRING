@@ -11,24 +11,22 @@ import java.util.List;
 public class Proveedor {
     @Id
     private String nit;
-    @Column(name = "razon_social")
+
+    @Column(name = "razon_social", nullable = false)
     private String razonSocial;
+
+    @Column(nullable = false)
     private String direccion;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "nitProveedor")
-    private List<Producto> productos;
-
-    public List<Producto> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
-    }
 
     public String getNit() {
         return nit;
+    }
+
+    public Proveedor() {
+    }
+
+    public Proveedor(String nit) {
+        this.nit = nit;
     }
 
     public void setNit(String nit) {
